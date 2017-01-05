@@ -76,7 +76,7 @@ function multiples (first, second) {
 console.log(multiples(5, 7));
 
 
-
+console.log('BOOST');
 /**
  * 03 | boost
 
@@ -95,28 +95,34 @@ boost(412);   // 523
 // 3. Recombine them with .join()
 
 function boost(num) {
-    function parse(digit) {
-        return parseInt(digit);
-    }
+    console.log('line 98: ' + num) // boost is called with a parameter of num (5629);
+    function parse(digit) {  // this function is inside boost
+        console.log('line 100: ' + digit) // This is step 3. Step 2 is line 116
+        return parseInt(digit); // converts the split string back into a number. The numbers are not joined. ParseInt() is a built in function
+    } // end of function parse
 
-    function increment(single) {
+    function increment(single) { // this function comes after  function parse, nested in function boos
+        console.log('line 105: ' + single)
         if(single < 9) {
+            console.log('line 108: ' + (single + 1))
             return single + 1;
         } else {
+            console.log('line 110: (the else statemnet)' + 0)
             return 0;
         }
-    }
+    } // end of function increment
 
-    let digits = num.toString().split('')// note: array of STRING
-    console.log(digits);
+    let digits = num.toString().split('')// converts numbers (num) into a string, splits the string and assigns to variable digits
+    console.log('line 116: ' + digits);  // this is step 2. Why? 
     // parseInt(digits[0])
     // parseInt(digits[1])...
    digits = digits.map(parse) 
-    console.log(digits.map(parse));
+    console.log('line 120 (digits.map(parse): ' + digits.map(parse));
+    console.log('line 121 (parseInt(digits.map(parse).map(increment).join(\'\')) : ' +  parseInt(digits.map(parse).map(increment).join('')))
     return parseInt(digits.map(parse).map(increment).join(''));
 }
 
-boost(5629);
+boost(5629); // this calls function boost and gives it a parameter of 5629
 console.log(boost(5629));
 
 
@@ -139,8 +145,16 @@ Write a function called divisors that accepts a number and returns an array of a
 //  return arr;
 // }
 
+function find (a, b) {
+    if (a % b === 0) {
+        console.log('line 144: ' + a, b);
+        return true
+    }
+}
+
 function divisors(num) {
-    console.log('someting wong')
+    console.log('line 150: ' + num);
+    return find( num);
 }
 
 console.log(divisors(25));
@@ -177,15 +191,16 @@ function map (arr, add) {
 }
 
 function filter (num, func) {
-    //let greats = [],
-    for (let i = 0; i < num.length; i++)
-     {
-        console.log(num[i]);
-        if (num[i], func === true) {
-            console.log(func,num[i]);
+    let greater = [];
+    for (let i = 0; i < num.length; i++) {
+        let boo = func(num[i]);
+            if (boo === true) {
+                greater.push(num[i]);
+            }
         }
+    return greater
     }
-}   
+  
 
 console.log(map([7, 1, 5, 2], addFive));                  // [12, 6, 10, 7]
 console.log(map([6, 3, 15, 4], addFive));                 // [11, 8, 20, 9]
